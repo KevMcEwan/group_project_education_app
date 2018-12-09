@@ -34,7 +34,7 @@ nav {
   flex-direction: row;
 }
 
-#current {
+#current, #incorrect {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,4 +51,9 @@ nav {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+#correct-element-name {
+  font-size: 2em;
+  margin-top: 10px;
 }
