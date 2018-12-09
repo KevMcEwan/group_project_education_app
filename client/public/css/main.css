@@ -57,3 +57,10 @@ nav {
   font-size: 2em;
   margin-top: 10px;
 }
+
+#pending {
+  background-color: mediumaquamarine;
+  border: black;
+  border-style: solid;
+  border-radius: 20px;
+}
