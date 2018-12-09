@@ -11,3 +11,13 @@ body {
   margin: 5%;
   font-size: 2em;
 }
+
+nav {
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-contents {
+  margin: 1em;
+  font-size: 1em;
+}
