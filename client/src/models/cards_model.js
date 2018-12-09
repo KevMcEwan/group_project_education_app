@@ -9,29 +9,11 @@ const Cards = function (){
 
 Cards.prototype.getAPIData = function () {
   const requestHelper1 = new RequestHelper('https://raw.githubusercontent.com/andrejewski/periodic-table/master/data.json');
-
-  // const requestHelper2 = new RequestHelper('http://localhost:3000/api/card-pack');
   requestHelper1.getData()
   .then((cards) => {
-
     this.createCards(cards);
-    // requestHelper2.post(this.cards);
-    // console.log(this.cards);
   })
-
-  // .catch(console.error);
 };
-
-// Cards.prototype.getDbData = function () {
-//   const requestHelper = new RequestHelper('https://localhost:3000/api/card-pack');
-//   // requestHelper.getDbData()
-//   // .then((cards) => {
-//   //   this.createCards(cards);
-//   //   requestHelper.post(this.cards);
-//   //   console.log(this.cards);
-//   // })
-//   // .catch(console.error);
-// };
 
 Cards.prototype.createCards = function (cards) {
   const requestHelper = new RequestHelper('http://localhost:3000/api/card-pack');
@@ -46,10 +28,6 @@ Cards.prototype.createCards = function (cards) {
     };
     requestHelper.post(newCard)
   });
-
-  // this.cards.push(newCard);
-
-
 };
 
 
