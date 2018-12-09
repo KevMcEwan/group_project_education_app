@@ -1,0 +1,23 @@
+body {
+  color: black;
+  font-family: 'Merriweather', serif;
+  padding: 0px;
+  margin: 0px;
+}
+
+.banner {
+  display: flex;
+  flex-direction: row;
+  margin: 5%;
+  font-size: 2em;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-contents {
+  margin: 1em;
+  font-size: 1em;
+}
