@@ -10,14 +10,14 @@ app.use(express.static(publicPath));
 
 app.use(parser.json());
 
-// MongoClient.connect('mongodb://localhost:27017')
-//   .then((client) => {
-//     const db = client.db('games_hub');
-//     const gamesCollection = db.collection('games');
-//     const gamesRouter = createRouter(gamesCollection)
-//     app.use('/api/games', gamesRouter);
-//   })
-//   .catch(console.error);
+MongoClient.connect('mongodb://localhost:27017')
+  .then((client) => {
+    const db = client.db('card_game');
+    const cardCollection = db.collection('cards');
+    const cardsRouter = createRouter(cardCollection)
+    app.use('/api/card-pack', cardsRouter);
+  })
+  .catch(console.error);
 
 app.listen(3000, function () {
   console.log(`Listening on port ${ this.address().port }`);
