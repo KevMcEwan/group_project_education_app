@@ -17,10 +17,14 @@
     <nav>
       <h3 class="nav-contents">Username: preview user</h3>
       <form class="nav-contents" action="/" method="get">
+        <label for="subject-choice">Choose your subject:</label>
         <select name="subject-choice">
+          <option selected="true" disabled="disabled">Select subject</option>
           <option value="periodic-table">Periodic Table</option>
         </select>
+        <input class="btn-subject-selected" type='submit' value="Start!">
       </form>
+      <a href="http://localhost:3000/" class="nav-contents">Home</a>
     </nav>
   </body>
 </html>
