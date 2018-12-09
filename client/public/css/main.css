@@ -4,3 +4,10 @@ body {
   padding: 0px;
   margin: 0px;
 }
+
+.banner {
+  display: flex;
+  flex-direction: row;
+  margin: 5%;
+  font-size: 2em;
+}
