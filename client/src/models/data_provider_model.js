@@ -15,7 +15,7 @@ DataProvider.prototype.bindEvents = function () {
   PubSub.subscribe('Data:data-from-api', (evt) => {
     // this.getCardsFromDB();
     console.dir("data is ready ", evt);
-    PubSub.publish('Data:data-ready', evt.detail);
+    PubSub.publish('Data:data-ready', this.cards);
   });
 };
 

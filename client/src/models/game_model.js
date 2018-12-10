@@ -14,9 +14,18 @@ Game.prototype.getCards = function () {
   dataForGame.getData();
   PubSub.subscribe('Data:data-ready', (evt) => {
     this.cards = evt.detail;
-    console.log("DONE!");
     console.log('Game model cards:', this.cards);
-  });
+    PubSub.publish('Game:cards-ready', this.cards);
+  })
+};
+
+Game.prototype.lowestGameLevelOnCards = function () {
+
+  // console.log('Inside the lowest card function', this.cards);
+  const levels = this.cards.map((card) => {
+    return card.gameLevel;
+  })
+  console.log(levels);
 };
 
 
