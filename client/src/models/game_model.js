@@ -23,7 +23,6 @@ Game.prototype.lowestGameLevelOnCards = function () {
   const levels = this.cards.map((card) => {
     return card.gameLevel;
   });
-  console.log(levels);
   return minLevel = levels.sort()[0];
 };
 
@@ -34,9 +33,14 @@ Game.prototype.getLatestLevelCards = function (level) {
     };
   });
   this.cards = currentLevelCards;
-  console.log(this.cards);
 };
 
+Game.prototype.getRandomCard = function () {
+  const min = Math.ceil(0);
+  const max = Math.floor(this.cards.length + 1);
+  const cardIndex = Math.floor(Math.random() * (max - min)) + min;
+  return this.cards[cardIndex];
+};
 
 
 module.exports = Game;
