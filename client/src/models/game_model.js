@@ -1,19 +1,17 @@
 const RequestHelper = require('../helpers/request_helper.js');
+const DataProvider = require('./data_provider_model.js');
 const PubSub = require('../helpers/pub_sub.js');
 
 
 const Game = function() {
-  this.cards = [];
+  this.cards =[];
 };
 
+
 Game.prototype.getCards = function () {
-  const requestHelper = new RequestHelper('http://localhost:3000/api/card-pack');
-  requestHelper.getData()
-  .then((cards) => {cards.forEach((card) => {
-    this.cards.push(card);
-  })
-});
-  console.log(this.cards);
+  const dataForGame = new DataProvider();
+  dataForGame.getCards();
+  this.cards = dataForGame.cards;
 };
 
 
