@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // const cards = new Cards();//cardPackURL, gameStartForm);
 
   const game = new Game();
-  game.getData();
+  game.getCards();
 
 
 });

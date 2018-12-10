@@ -10,7 +10,8 @@ const Game = function() {
 
 Game.prototype.getCards = function () {
   const dataForGame = new DataProvider();
-  dataForGame.getCards();
+  dataForGame.bindEvents();
+  dataForGame.getData();
   this.cards = dataForGame.cards;
 };
 

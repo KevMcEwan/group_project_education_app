@@ -10,16 +10,17 @@ const DataProvider = function (){
 DataProvider.prototype.bindEvents = function () {
   PubSub.subscribe('Data:data-from-db', (evt) => {
     this.getAPIDataIfNeeded(); //TODO ???
+    console.log("DataProvider BindEvents");
   });
-  PubSub.subscribe('Data:data-from-api', (evt) => {
+  // PubSub.subscribe('Data:data-from-api', (evt) => {
     //TODO ???
-  });
+  // });
 };
 
 
 DataProvider.prototype.getData = function () {
   this.getCardsFromDB();
-  // console.log("in DB:", this.cards);
+  console.log("in DB:", this.cards);
 };
 
 
@@ -30,8 +31,8 @@ DataProvider.prototype.getCardsFromDB = function () {
       cards.forEach((card) => {
         this.cards.push(card);
       })
-    .then(PubSub.publish('Data:data-from-db', cards))
-  });
+    })
+    .then((cards) => PubSub.publish('Data:data-from-db', cards))
 };
 
 
@@ -40,18 +41,18 @@ DataProvider.prototype.getAPIDataIfNeeded = function () {
   requestHelper.getData()
   .then((cardsFromAPI) => {
     //if length of cards (from API) is same as the ones already in DB, do nothing
-    console.log("in API:", cardsFromAPI.length, ' in DB',this.cards.length );
+    // console.log("in API:", cardsFromAPI.length, 'in DB',this.cards.length );
     if (cardsFromAPI.length !== this.cards.length ) {
       this.createCardsAndAddThemToDB(cardsFromAPI);
     } else {
       PubSub.publish('Data:data-from-api', cardsFromAPI);
-    }
-  })
+    };
+  });
 };
 
-DataProvider.prototype.createCardsAndAddThemToDB = function (cards) {
+DataProvider.prototype.createCardsAndAddThemToDB = function (cardsFromAPI) {
   const requestHelper = new RequestHelper('http://localhost:3000/api/card-pack');
-  cards.forEach((card) => {
+  cardsFromAPI.forEach((card) => {
     const newCard = {
       name: card.name,
       symbol: card.symbol,
@@ -62,9 +63,7 @@ DataProvider.prototype.createCardsAndAddThemToDB = function (cards) {
     };
     requestHelper.post(newCard)
   });
-
-  //pubsub publish Data:from-api-is-ready
-
+  PubSub.publish('Data:data-from-api', cardsFromAPI);
 };
 
 
