@@ -1,13 +1,22 @@
 const RequestHelper = require('../helpers/request_helper.js');
 const PubSub = require('../helpers/pub_sub.js');
 
-const Cards = function (){
-  this.url = 'http://localhost:3000/api/card-pack';
+const Cards = function (url, element){
+  this.url = url;
+  this.element = element;
+};
+
+Cards.prototype.bindEvents = function () {
+  this.element.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+  });
+  console.log(event.target);
 };
 
 Cards.prototype.getAPIData = function () {
-  const requestHelper1 = new RequestHelper('https://raw.githubusercontent.com/andrejewski/periodic-table/master/data.json');
-  requestHelper1.getData()
+  const requestHelper = new RequestHelper('https://raw.githubusercontent.com/andrejewski/periodic-table/master/data.json');
+  requestHelper.getData()
   .then((cards) => {
     this.createCards(cards);
   })
