@@ -12,7 +12,11 @@ Game.prototype.getCards = function () {
   const dataForGame = new DataProvider();
   dataForGame.bindEvents();
   dataForGame.getData();
-  this.cards = dataForGame.cards;
+  PubSub.subscribe('Data:data-ready', (evt) => {
+    this.cards = evt.detail;
+    console.log("DONE!");
+    console.log('Game model cards:', this.cards);
+  });
 };
 
 

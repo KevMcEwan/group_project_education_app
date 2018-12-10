@@ -9,12 +9,14 @@ const DataProvider = function (){
 
 DataProvider.prototype.bindEvents = function () {
   PubSub.subscribe('Data:data-from-db', (evt) => {
-    this.getAPIDataIfNeeded(); //TODO ???
-    console.log("DataProvider BindEvents");
+    this.getAPIDataIfNeeded();
+    // PubSub.publish('Data:data-ready', evt);
   });
-  // PubSub.subscribe('Data:data-from-api', (evt) => {
-    //TODO ???
-  // });
+  PubSub.subscribe('Data:data-from-api', (evt) => {
+    // this.getCardsFromDB();
+    console.dir("data is ready ", evt);
+    PubSub.publish('Data:data-ready', evt.detail);
+  });
 };
 
 
@@ -41,8 +43,8 @@ DataProvider.prototype.getAPIDataIfNeeded = function () {
   requestHelper.getData()
   .then((cardsFromAPI) => {
     //if length of cards (from API) is same as the ones already in DB, do nothing
-    // console.log("in API:", cardsFromAPI.length, 'in DB',this.cards.length );
-    if (cardsFromAPI.length !== this.cards.length ) {
+    console.log("in API:", cardsFromAPI.length, 'in DB',this.cards.length );
+    if (cardsFromAPI.length > this.cards.length ) {
       this.createCardsAndAddThemToDB(cardsFromAPI);
     } else {
       PubSub.publish('Data:data-from-api', cardsFromAPI);
@@ -51,6 +53,7 @@ DataProvider.prototype.getAPIDataIfNeeded = function () {
 };
 
 DataProvider.prototype.createCardsAndAddThemToDB = function (cardsFromAPI) {
+  //TODO: Extension: remove all from db
   const requestHelper = new RequestHelper('http://localhost:3000/api/card-pack');
   cardsFromAPI.forEach((card) => {
     const newCard = {
