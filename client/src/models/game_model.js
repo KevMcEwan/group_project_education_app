@@ -20,13 +20,23 @@ Game.prototype.getCards = function () {
 };
 
 Game.prototype.lowestGameLevelOnCards = function () {
-
-  // console.log('Inside the lowest card function', this.cards);
   const levels = this.cards.map((card) => {
     return card.gameLevel;
-  })
+  });
   console.log(levels);
+  return minLevel = levels.sort()[0];
 };
+
+Game.prototype.getLatestLevelCards = function (level) {
+  const currentLevelCards = this.cards.filter((card) => {
+    if (card.gameLevel === level) {
+      return card;
+    };
+  });
+  this.cards = currentLevelCards;
+  console.log(this.cards);
+};
+
 
 
 module.exports = Game;

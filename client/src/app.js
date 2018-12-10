@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
   game.getCards();
 
   PubSub.subscribe('Game:cards-ready', (evt) => {
-      game.lowestGameLevelOnCards();
+      const lowestLevel = game.lowestGameLevelOnCards();
+      game.getLatestLevelCards(lowestLevel);
   });
 
 
