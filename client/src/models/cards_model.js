@@ -2,9 +2,7 @@ const RequestHelper = require('../helpers/request_helper.js');
 const PubSub = require('../helpers/pub_sub.js');
 
 const Cards = function (){
-  // this.url = 'https://raw.githubusercontent.com/andrejewski/periodic-table/master/data.json';
   this.url = 'http://localhost:3000/api/card-pack';
-  this.cards = [];
 };
 
 Cards.prototype.getAPIData = function () {
@@ -29,11 +27,6 @@ Cards.prototype.createCards = function (cards) {
     requestHelper.post(newCard)
   });
 };
-
-
-
-
-
 
 
 module.exports = Cards;
