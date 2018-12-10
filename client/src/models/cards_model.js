@@ -9,9 +9,9 @@ const Cards = function (url, element){
 Cards.prototype.bindEvents = function () {
   this.element.addEventListener('submit', (event) => {
     event.preventDefault();
-
+    console.log(event.target.subjectchoice.value);
   });
-  console.log(event.target);
+
 };
 
 Cards.prototype.getAPIData = function () {
