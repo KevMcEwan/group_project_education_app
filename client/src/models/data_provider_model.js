@@ -7,15 +7,14 @@ const DataProvider = function (){
 };
 
 
-
-//TODO bind here:
-
-//pubsub subscribe Data:drom-db
-    this.getAPIDataIfNeeded();
-// console.log("in DB:", this.cards);
-
-
-//pubsub subscribe Data:from-api-is-ready
+DataProvider.prototype.bindEvents = function () {
+  PubSub.subscribe('Data:data-from-db', (evt) => {
+    this.getAPIDataIfNeeded(); //TODO ???
+  });
+  PubSub.subscribe('Data:data-from-api', (evt) => {
+    //TODO ???
+  });
+};
 
 
 DataProvider.prototype.getData = function () {
@@ -27,11 +26,11 @@ DataProvider.prototype.getData = function () {
 DataProvider.prototype.getCardsFromDB = function () {
   const requestHelper = new RequestHelper('http://localhost:3000/api/card-pack');
   requestHelper.getData()
-  .then((cards) => {
-    cards.forEach((card) => {
-      this.cards.push(card);
-    })
-    //pubsub publish Data:drom-db
+    .then((cards) => {
+      cards.forEach((card) => {
+        this.cards.push(card);
+      })
+    .then(PubSub.publish('Data:data-from-db', cards))
   });
 };
 
@@ -44,8 +43,8 @@ DataProvider.prototype.getAPIDataIfNeeded = function () {
     console.log("in API:", cardsFromAPI.length, ' in DB',this.cards.length );
     if (cardsFromAPI.length !== this.cards.length ) {
       this.createCardsAndAddThemToDB(cardsFromAPI);
-    }else{
-      //pubsub publish Data:from-api-is-ready
+    } else {
+      PubSub.publish('Data:data-from-api', cardsFromAPI);
     }
   })
 };
