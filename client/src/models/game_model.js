@@ -7,6 +7,7 @@ const Game = function() {
   this.cards =[];
   this.userAnswer = null;
   this.currentCardName = null;
+  this.currentCard = null;
 };
 
 
@@ -52,17 +53,32 @@ Game.prototype.getUserAnswer = function () {
   });
 };
 
-Game.prototype.getCurrentCardName = function () {
+Game.prototype.getCurrentCard = function () {
   PubSub.subscribe('FormView:current-card', (evt) => {
+    this.currentCard = evt.detail;
     this.currentCardName = evt.detail.name.toLowerCase();
   });
 };
 
 Game.prototype.checkUserAnswer = function () {
   if (this.userAnswer === this.currentCardName) {
+    const cardID = this.currentCard._id;
+    console.log(cardID);
+    // const cardGameLevel = this.currentCard.gameLevel;
+    const requestHelper = new RequestHelper('http://localhost:3000/api/card-pack');
+    const updatedCard = {
+      name: this.currentCard.name,
+      symbol: this.currentCard.symbol,
+      atomicNumber: this.currentCard.atomicNumber,
+      colour: this.currentCard.colour,
+      group: this.currentCard.group,
+      gameLevel: this.currentCard.gameLevel += 1
+    };
+    requestHelper.put(cardID, updatedCard);
     // TODO if true you will need to update level in database and splice from array and re-render the element form view.
     // TODO re-render needs to consider if any cards are left in the array.
-  } else {
+  // }
+  // else {
     // TODO render card on incorrect pile, and re-render element form view.
     // TODO re-render needs to consider if any cards are left in the array.
   };

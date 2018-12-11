@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const game = new Game();
   game.getCards();
-  game.getCurrentCardName();
+  game.getCurrentCard();
   game.getUserAnswer();
 
   PubSub.subscribe('Game:cards-ready', (evt) => {
