@@ -37,7 +37,7 @@ Game.prototype.getLatestLevelCards = function (level) {
 
 Game.prototype.getRandomCard = function () {
   const min = Math.ceil(0);
-  const max = Math.floor(this.cards.length + 1);
+  const max = Math.floor(this.cards.length);
   const cardIndex = Math.floor(Math.random() * (max - min)) + min;
   return this.cards[cardIndex];
 };
