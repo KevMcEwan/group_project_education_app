@@ -46,6 +46,9 @@ FormView.prototype.renderLevelCompleteMessage = function () {
   nextLevelButton.setAttribute('id', 'next-level-button');
   nextLevelButton.textContent = 'Start next level';
   nextLevelButton.value = 'nextlevel';
+  nextLevelButton.addEventListener('click', (evt) => {
+    PubSub.publish('FormView:next-level', evt.target.value)
+  })
   completedLevelDiv.appendChild(nextLevelButton);
 };
 
