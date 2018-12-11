@@ -80,7 +80,7 @@ Game.prototype.checkUserAnswer = function () {
     };
     requestHelper.put(cardID, updatedCard);
     this.cards.splice(this.currentCardIndex, 1);
-    console.log(this.cards.length);
+    // console.log(this.cards.length);
     this.checkForRemainingCardsAndContinueOrEnd();
   } else {
     PubSub.publish('Game:incorrect-card', this.currentCard);
@@ -94,6 +94,7 @@ Game.prototype.checkUserAnswer = function () {
 Game.prototype.checkForRemainingCardsAndContinueOrEnd = function () {
   if (this.cards.length === 0) {
     console.log(`You have completed level ${this.currentGameLevel}!`);
+    PubSub.publish('Game:no-cards-remaining', this.currentGameLevel);
   } else {
     const nextCard = this.getRandomCard();
     PubSub.publish('Game:next-card', nextCard);
