@@ -77,6 +77,10 @@ Game.prototype.checkUserAnswer = function () {
       gameLevel: this.currentCard.gameLevel += 1
     };
     requestHelper.put(cardID, updatedCard);
+    this.cards.splice(this.currentCardIndex, 1);
+    console.log(this.cards.length);
+    const nextCard = this.getRandomCard();
+    PubSub.publish('Game:next-card', nextCard);
     // TODO if true you will need to update level in database and splice from array and re-render the element form view.
     // TODO re-render needs to consider if any cards are left in the array.
   // }

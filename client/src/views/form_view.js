@@ -13,8 +13,11 @@ FormView.prototype.bindEvents = function () {
     const userAnswer = evt.target.textInputFieldID.value;
     PubSub.publish('FormView:answer-submitted', userAnswer);
     evt.target.reset();
-
-  })
+  });
+  PubSub.subscribe('Game:next-card', (evt) => {
+    this.currentCard = evt.detail;
+    this.render();
+  });
 };
 
 FormView.prototype.render = function () {
