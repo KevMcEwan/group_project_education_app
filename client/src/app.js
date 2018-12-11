@@ -27,4 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const incorrectCardView = new IncorrectCardView(incorrectCardDiv);
       incorrectCardView.bindEvents();
   });
+
+
+  PubSub.subscribe('FormView:start-next-level', (evt) => {
+    game.getCards();
+  })
 });

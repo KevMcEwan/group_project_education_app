@@ -101,6 +101,11 @@ Game.prototype.checkForRemainingCardsAndContinueOrEnd = function () {
   };
 };
 
-
+// Game.prototype.startNextLevel = function () {
+//   PubSub.subscribe('FormView:start-next-level', (evt) => {
+//     this.getCards();
+//     console.log(this.cards);
+//   });
+// };
 
 module.exports = Game;
