@@ -5,10 +5,13 @@ const PubSub = require('./helpers/pub_sub.js');
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('JavaScript Loaded');
-  const gameStartForm = document.querySelector('#nav-contents');
+  // const gameStartForm = document.querySelector('#nav-contents');
+  // TODO: extension: allow user to select different topic/category for game
 
   const game = new Game();
   game.getCards();
+  game.getCurrentCardName();
+  game.getUserAnswer();
 
   PubSub.subscribe('Game:cards-ready', (evt) => {
       const lowestLevel = game.lowestGameLevelOnCards();
@@ -17,8 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const randomCard = game.getRandomCard();
       const formView = new FormView(cardInPlayDiv, randomCard);
       formView.bindEvents();
-      let currentCard = game.getCurrentCard();
       formView.render();
-      game.checkUserAnswer(currentCard);
   });
 });

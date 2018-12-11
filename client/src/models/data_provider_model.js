@@ -10,11 +10,9 @@ const DataProvider = function (){
 DataProvider.prototype.bindEvents = function () {
   PubSub.subscribe('Data:data-from-db', (evt) => {
     this.getAPIDataIfNeeded();
-    // PubSub.publish('Data:data-ready', evt);
   });
   PubSub.subscribe('Data:data-from-api', (evt) => {
-    // this.getCardsFromDB();
-    console.dir("data is ready ", evt);
+    // console.dir("data is ready ", evt);
     PubSub.publish('Data:data-ready', this.cards);
   });
 };
@@ -22,7 +20,7 @@ DataProvider.prototype.bindEvents = function () {
 
 DataProvider.prototype.getData = function () {
   this.getCardsFromDB();
-  console.log("in DB:", this.cards);
+  // console.log("in DB:", this.cards);
 };
 
 

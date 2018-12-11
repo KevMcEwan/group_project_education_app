@@ -5,6 +5,8 @@ const PubSub = require('../helpers/pub_sub.js');
 
 const Game = function() {
   this.cards =[];
+  this.userAnswer = null;
+  this.currentCardName = null;
 };
 
 
@@ -45,22 +47,29 @@ Game.prototype.getRandomCard = function () {
 Game.prototype.getUserAnswer = function () {
   PubSub.subscribe('FormView:answer-submitted', (evt) => {
     const userAnswer = evt.detail.toLowerCase();
-    return userAnswer;
+    this.userAnswer = userAnswer;
+    this.checkUserAnswer();
   });
 };
 
-Game.prototype.getCurrentCard = function () {
+Game.prototype.getCurrentCardName = function () {
   PubSub.subscribe('FormView:current-card', (evt) => {
-    return evt.detail.name.toLowerCase();
+    this.currentCardName = evt.detail.name.toLowerCase();
   });
 };
 
-Game.prototype.checkUserAnswer = function (currentCard) {
-  if (this.getUserAnswer() === currentCard) {
-    console.log(true);
+Game.prototype.checkUserAnswer = function () {
+  if (this.userAnswer === this.currentCardName) {
+    // TODO if true you will need to update level in database and splice from array and re-render the element form view.
+    // TODO re-render needs to consider if any cards are left in the array.
   } else {
-    console.log(false);
+    // TODO render card on incorrect pile, and re-render element form view.
+    // TODO re-render needs to consider if any cards are left in the array.
   };
+
+
+  console.log('User answer:', this.userAnswer);
+  console.log('Current card', this.currentCardName);
 };
 
 module.exports = Game;
