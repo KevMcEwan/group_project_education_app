@@ -26,8 +26,34 @@ FormView.prototype.bindEvents = function () {
 };
 
 FormView.prototype.render = function () {
-  const elementSymbol = this.element.querySelector('#element-symbol');
-  elementSymbol.textContent = this.currentCard.symbol;
+  this.element.innerHTML = '';
+  const elementSymbolTitle = document.createElement('h1');
+  elementSymbolTitle.setAttribute('id', 'element-symbol');
+  elementSymbolTitle.textContent = this.currentCard.symbol;
+  this.element.appendChild(elementSymbolTitle);
+
+  const answerForm = document.createElement('form');
+  answerForm.classList.add('name-input');
+  this.element.appendChild(answerForm);
+
+  const inputTextField = document.createElement('input');
+  inputTextField.setAttribute('type', 'text');
+  inputTextField.setAttribute('id', 'textInputFieldID');
+  inputTextField.setAttribute('name', 'textInputField');
+  answerForm.appendChild(inputTextField);
+
+  const inputTextFieldLabel = document.createElement('label');
+  inputTextFieldLabel.setAttribute('for', 'textInputField');
+  inputTextFieldLabel.textContent = 'Which element is this?';
+  answerForm.appendChild(inputTextFieldLabel);
+
+  const answerSubmitButton = document.createElement('input');
+  answerSubmitButton.classList.add('btn-answer-typed');
+  answerSubmitButton.setAttribute('type', 'submit');
+  answerSubmitButton.setAttribute('value', 'Submit');
+  answerForm.appendChild(answerSubmitButton);
+
+
   PubSub.publish('FormView:current-card', this.currentCard);
 };
 
