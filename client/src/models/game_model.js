@@ -42,15 +42,25 @@ Game.prototype.getRandomCard = function () {
   return this.cards[cardIndex];
 };
 
-Game.prototype.checkUserAnswer = function () {
-
-  const currentCardName = null;
+Game.prototype.getUserAnswer = function () {
   PubSub.subscribe('FormView:answer-submitted', (evt) => {
-    const userAnswer = evt.toLowerCase;
-    console.log(evt.toLowerCase;
+    const userAnswer = evt.detail.toLowerCase();
+    return userAnswer;
   });
-
 };
 
+Game.prototype.getCurrentCard = function () {
+  PubSub.subscribe('FormView:current-card', (evt) => {
+    return evt.detail.name.toLowerCase();
+  });
+};
+
+Game.prototype.checkUserAnswer = function (currentCard) {
+  if (this.getUserAnswer() === currentCard) {
+    console.log(true);
+  } else {
+    console.log(false);
+  };
+};
 
 module.exports = Game;

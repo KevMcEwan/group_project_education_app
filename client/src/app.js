@@ -17,7 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const randomCard = game.getRandomCard();
       const formView = new FormView(cardInPlayDiv, randomCard);
       formView.bindEvents();
+      let currentCard = game.getCurrentCard();
       formView.render();
-      game.checkUserAnswer();
+      game.checkUserAnswer(currentCard);
   });
 });
