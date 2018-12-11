@@ -10,9 +10,9 @@ const FormView = function (element, currentCard) {
 FormView.prototype.bindEvents = function () {
   this.element.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    //TODO get textbox content entered by user
-    PubSub.publish('FormView:answer-submitted') 
-    this.element.reset();
+    const userAnswer = evt.target.textInputFieldID.value;
+    PubSub.publish('FormView:answer-submitted', userAnswer);
+    evt.target.reset();
 
   })
 };
@@ -20,6 +20,7 @@ FormView.prototype.bindEvents = function () {
 FormView.prototype.render = function () {
   const elementSymbol = this.element.querySelector('#element-symbol');
   elementSymbol.textContent = this.currentCard.symbol;
+  PubSub.publish('FormView:current-card', this.currentCard);
 };
 
 

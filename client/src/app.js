@@ -13,10 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
   PubSub.subscribe('Game:cards-ready', (evt) => {
       const lowestLevel = game.lowestGameLevelOnCards();
       game.getLatestLevelCards(lowestLevel);
-      const cardInPlay = document.querySelector('#current');
+      const cardInPlayDiv = document.querySelector('#current');
       const randomCard = game.getRandomCard();
-      const formView = new FormView(cardInPlay, randomCard);
+      const formView = new FormView(cardInPlayDiv, randomCard);
       formView.bindEvents();
       formView.render();
+      game.checkUserAnswer();
   });
 });

@@ -42,5 +42,15 @@ Game.prototype.getRandomCard = function () {
   return this.cards[cardIndex];
 };
 
+Game.prototype.checkUserAnswer = function () {
+
+  const currentCardName = null;
+  PubSub.subscribe('FormView:answer-submitted', (evt) => {
+    const userAnswer = evt.toLowerCase;
+    console.log(evt.toLowerCase;
+  });
+
+};
+
 
 module.exports = Game;
