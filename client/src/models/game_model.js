@@ -9,6 +9,7 @@ const Game = function() {
   this.currentCardName = null;
   this.currentCard = null;
   this.currentCardIndex = null;
+  this.currentGameLevel = null;
 };
 
 
@@ -27,7 +28,9 @@ Game.prototype.lowestGameLevelOnCards = function () {
   const levels = this.cards.map((card) => {
     return card.gameLevel;
   });
-  return minLevel = levels.sort()[0];
+  const minLevel = levels.sort()[0];
+  this.currentGameLevel = minLevel;
+  return minLevel;
 };
 
 Game.prototype.getLatestLevelCards = function (level) {
@@ -78,20 +81,25 @@ Game.prototype.checkUserAnswer = function () {
     requestHelper.put(cardID, updatedCard);
     this.cards.splice(this.currentCardIndex, 1);
     console.log(this.cards.length);
-    const nextCard = this.getRandomCard();
-    PubSub.publish('Game:next-card', nextCard);
-    // TODO re-render needs to consider if any cards are left in the array.
+    this.checkForRemainingCardsAndContinueOrEnd();
   } else {
     PubSub.publish('Game:incorrect-card', this.currentCard);
     const nextCard = this.getRandomCard();
     PubSub.publish('Game:next-card', nextCard);
-    // TODO render card on incorrect pile, and re-render element form view.
-    // TODO re-render needs to consider if any cards are left in the array.
   };
-
-
   console.log('User answer:', this.userAnswer);
   console.log('Current card', this.currentCardName);
 };
+
+Game.prototype.checkForRemainingCardsAndContinueOrEnd = function () {
+  if (this.cards.length === 0) {
+    console.log(`You have completed level ${this.currentGameLevel}!`);
+  } else {
+    const nextCard = this.getRandomCard();
+    PubSub.publish('Game:next-card', nextCard);
+  };
+};
+
+
 
 module.exports = Game;
