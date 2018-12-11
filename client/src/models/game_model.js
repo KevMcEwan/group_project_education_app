@@ -66,7 +66,6 @@ Game.prototype.checkUserAnswer = function () {
   if (this.userAnswer === this.currentCardName) {
     const cardID = this.currentCard._id;
     console.log(cardID);
-    // const cardGameLevel = this.currentCard.gameLevel;
     const requestHelper = new RequestHelper('http://localhost:3000/api/card-pack');
     const updatedCard = {
       name: this.currentCard.name,
@@ -81,10 +80,11 @@ Game.prototype.checkUserAnswer = function () {
     console.log(this.cards.length);
     const nextCard = this.getRandomCard();
     PubSub.publish('Game:next-card', nextCard);
-    // TODO if true you will need to update level in database and splice from array and re-render the element form view.
     // TODO re-render needs to consider if any cards are left in the array.
-  // }
-  // else {
+  } else {
+    PubSub.publish('Game:incorrect-card', this.currentCard);
+    const nextCard = this.getRandomCard();
+    PubSub.publish('Game:next-card', nextCard);
     // TODO render card on incorrect pile, and re-render element form view.
     // TODO re-render needs to consider if any cards are left in the array.
   };
