@@ -16,9 +16,8 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-style: solid;
-    border-style: solid;
-    border-style: solid;
+    border: 2px solid #eeeeee;
+    margin: 0 25px;
 }
 
 .nav-contents {
@@ -45,7 +44,7 @@ nav {
   flex-direction: row;
 }
 
-#current, #incorrect {
+#current, #incorrect, #pending {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -71,7 +70,37 @@ nav {
 
 #pending {
   background-color: mediumaquamarine;
-  border: black;
-  border-style: solid;
-  border-radius: 20px;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  justify-content: flex-end;
+}
+
+footer ul {
+  list-style: none;
+  padding: 0 20px;
+}
+
+footer li {
+  display: inline;
+}
+
+footer li img {
+  width: 32px;
+  height: 32px;
+}
+
+footer .container {
+  justify-content: flex-end;
+}
+
+.container {
+  background-color: #e4e4e4;
+  height: 40px;
+  margin: 0 25px;
+  padding: 5px;
+  border-radius: 5px;
 }
