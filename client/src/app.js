@@ -6,14 +6,18 @@ const PubSub = require('./helpers/pub_sub.js');
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('JavaScript Loaded');
-  // const gameStartForm = document.querySelector('#nav-contents');
-  // TODO: extension: allow user to select different topic/category for game
+
+  const gameStartForm = document.querySelector('#nav-contents');
+
+  gameStartForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const gameTopicSelected = evt.target.subjectchoice.value;
+    console.dir(evt.target.subjectchoice.value);
+    PubSub.publish('App:Game-topic-selection', gameTopicSelected);
+  });
 
   const game = new Game();
-  game.getCards();
-  game.getCurrentCard();
-  game.getUserAnswer();
-
+  game.bindEvents();
 
   PubSub.subscribe('Game:cards-ready', (evt) => {
       const lowestLevel = game.lowestGameLevelOnCards();

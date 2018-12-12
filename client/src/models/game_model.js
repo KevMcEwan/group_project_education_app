@@ -1,6 +1,7 @@
 const RequestHelper = require('../helpers/request_helper.js');
 const DataProvider = require('./data_provider_model.js');
 const PubSub = require('../helpers/pub_sub.js');
+const ApiDataHandler = require('./api_data_handler_model.js');
 
 
 const Game = function() {
@@ -12,17 +13,39 @@ const Game = function() {
   this.currentGameLevel = null;
 };
 
+Game.prototype.bindEvents = function () {
+  PubSub.subscribe('App:Game-topic-selection', (evt) => {
+  const selectedApiDataHandler = ApiDataHandler[evt.detail];
+  this.getCards(selectedApiDataHandler);
+  });
 
-Game.prototype.getCards = function () {
-  const dataForGame = new DataProvider();
+  PubSub.subscribe('FormView:current-card', (evt) => {
+    this.currentCard = evt.detail;
+    this.currentCardName = evt.detail.answer.toLowerCase();
+    });
+
+  PubSub.subscribe('FormView:answer-submitted', (evt) => {
+    const userAnswer = evt.detail.toLowerCase();
+    this.userAnswer = userAnswer;
+    this.checkUserAnswer();
+    });
+
+};
+
+
+
+Game.prototype.getCards = function (selectedApiDataHandler) {
+  const dataForGame = new DataProvider(selectedApiDataHandler.url, selectedApiDataHandler.mapAPIDataToCards);
   dataForGame.bindEvents();
   dataForGame.getData();
   PubSub.subscribe('Data:data-ready', (evt) => {
     this.cards = evt.detail;
     console.log('Game model cards:', this.cards);
     PubSub.publish('Game:cards-ready', this.cards);
-  })
+  });
 };
+
+
 
 Game.prototype.lowestGameLevelOnCards = function () {
   const levels = this.cards.map((card) => {
@@ -50,21 +73,6 @@ Game.prototype.getRandomCard = function () {
   return this.cards[cardIndex];
 };
 
-Game.prototype.getUserAnswer = function () {
-  PubSub.subscribe('FormView:answer-submitted', (evt) => {
-    const userAnswer = evt.detail.toLowerCase();
-    this.userAnswer = userAnswer;
-    this.checkUserAnswer();
-  });
-};
-
-Game.prototype.getCurrentCard = function () {
-  PubSub.subscribe('FormView:current-card', (evt) => {
-    this.currentCard = evt.detail;
-    this.currentCardName = evt.detail.name.toLowerCase();
-  });
-};
-
 Game.prototype.checkUserAnswer = function () {
   if (this.userAnswer === this.currentCardName) {
     const cardID = this.currentCard._id;
@@ -83,6 +91,7 @@ Game.prototype.checkUserAnswer = function () {
     // console.log(this.cards.length);
     this.checkForRemainingCardsAndContinueOrEnd();
   } else {
+    console.log('In game model, this is incorrect card', this.currentCard);
     PubSub.publish('Game:incorrect-card', this.currentCard);
     const nextCard = this.getRandomCard();
     PubSub.publish('Game:next-card', nextCard);
