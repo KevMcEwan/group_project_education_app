@@ -43,11 +43,14 @@ Game.prototype.getLatestLevelCards = function (level) {
 };
 
 Game.prototype.getRandomCard = function () {
-  const min = Math.ceil(0);
-  const max = Math.floor(this.cards.length);
-  const cardIndex = Math.floor(Math.random() * (max - min)) + min;
-  this.currentCardIndex = cardIndex;
-  return this.cards[cardIndex];
+  if (this.cards.length === )
+    const min = Math.ceil(0);
+    const max = Math.floor(this.cards.length);
+    const cardIndex = Math.floor(Math.random() * (max - min)) + min;
+    console.log('current card index', cardIndex);
+    console.log('current array length:', this.cards.length);
+    this.currentCardIndex = cardIndex;
+    return this.cards[cardIndex];
 };
 
 Game.prototype.getUserAnswer = function () {
