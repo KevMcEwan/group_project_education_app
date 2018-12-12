@@ -40,10 +40,8 @@ FormView.prototype.render = function () {
   inputTextField.setAttribute('type', 'text');
   inputTextField.setAttribute('id', 'textInputFieldID');
   inputTextField.setAttribute('name', 'textInputField');
-  // new lines which allows focus on tab after reload.
   inputTextField.setAttribute('autofocus', 'autofocus');
   inputTextField.setAttribute('onfocus', 'this.select()');
-  // end of new lines
   answerForm.appendChild(inputTextField);
 
   const inputTextFieldLabel = document.createElement('label');
