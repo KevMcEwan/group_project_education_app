@@ -69,7 +69,8 @@ DataProvider.prototype.createCardsAndAddThemToDB = function (cardsFromAPI) {
   cardsForDatabase.forEach( (card) => {
     requestHelper.post(card);
   });
-  PubSub.publish('Data:data-grabbed-from-api', cardsFromAPI);
+  this.getCardsFromDB();
+  // PubSub.publish('Data:data-grabbed-from-api', cardsFromAPI);
 };
 
 

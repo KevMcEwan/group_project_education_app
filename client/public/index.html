@@ -30,6 +30,7 @@
           <select name="subjectchoice" id="subject-choice">
             <option selected="true" disabled="disabled">Select subject</option>
             <option value="periodicTable">Periodic Table</option>
+            <option value="countryCapitals">Country Capitals</option>
           </select>
           <input class="btn-subject-selected" type="submit" value="Start!">
         </form>
@@ -45,13 +46,13 @@
     <div id="card-container">
 
       <div class="card-pile" id="pending">
-        <h1>Elements</h1>
+        <h1>Pack of Cards</h1>
       </div>
 
       <div class="card-pile" id="current">
         <h1 id="element-symbol"></h1>
         <form class="name-input" method="post">
-          <label for="text-input-field">Which element is this?</label>
+          <label for="text-input-field">Question!</label>
           <input type="text" id="textInputFieldID" name="textInputField">
           <input class="btn-answer-typed" type='submit' value="Submit">
         </form>

@@ -47,7 +47,7 @@ FormView.prototype.render = function () {
 
   const inputTextFieldLabel = document.createElement('label');
   inputTextFieldLabel.setAttribute('for', 'textInputField');
-  inputTextFieldLabel.textContent = 'Which element is this?';
+  inputTextFieldLabel.textContent = this.currentCard.question;
   answerForm.appendChild(inputTextFieldLabel);
 
   const answerSubmitButton = document.createElement('input');

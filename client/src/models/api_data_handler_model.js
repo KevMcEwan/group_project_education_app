@@ -30,7 +30,7 @@ const ApiDataHandler = {
   countryCapitals: {
     url: 'https://restcountries.eu/rest/v2/all',
     mapAPIDataToCards: countryCapitalsFormatting
-  };
+  }
 };
 
 
