@@ -3,6 +3,7 @@ const periodicTableFormatting = (data) => {
     return {
       answer: card.name,
       clue: card.symbol,
+      question: 'Which element is this?',
       gameLevel: 1
     };
   });
@@ -13,6 +14,7 @@ const countryCapitalsFormatting = (data) => {
     return {
       answer: card.capital,
       clue: card.name,
+      question: `What is the name of this country's capital city?`,
       gameLevel: 1
     };
   });
