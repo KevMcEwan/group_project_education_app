@@ -2,7 +2,7 @@ const RequestHelper = require('../helpers/request_helper.js');
 const PubSub = require('../helpers/pub_sub.js');
 
 
-const DataProvider = function (){
+const DataProvider = function () {
   this.cards = [];
 };
 
@@ -56,11 +56,11 @@ DataProvider.prototype.createCardsAndAddThemToDB = function (cardsFromAPI) {
   const requestHelper = new RequestHelper('http://localhost:3000/api/card-pack');
   cardsFromAPI.forEach((card) => {
     const newCard = {
-      name: card.name,
-      symbol: card.symbol,
-      atomicNumber: card.atomicNumber,
-      colour: card.cpkHexColor,
-      group: card.groupBlock,
+      answer: card.name,
+      clue: card.symbol,
+      // atomicNumber: card.atomicNumber,
+      // colour: card.cpkHexColor,
+      // group: card.groupBlock,
       gameLevel: 1
     };
     requestHelper.post(newCard)

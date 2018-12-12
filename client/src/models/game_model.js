@@ -61,7 +61,7 @@ Game.prototype.getUserAnswer = function () {
 Game.prototype.getCurrentCard = function () {
   PubSub.subscribe('FormView:current-card', (evt) => {
     this.currentCard = evt.detail;
-    this.currentCardName = evt.detail.name.toLowerCase();
+    this.currentCardName = evt.detail.answer.toLowerCase();
   });
 };
 

@@ -15,9 +15,9 @@ IncorrectCardView.prototype.bindEvents = function () {
 
 IncorrectCardView.prototype.renderIncorrectCard = function () {
   const elementSymbol = this.element.querySelector('#element-symbol');
-  elementSymbol.textContent = this.lastIncorrectCard.symbol;
+  elementSymbol.textContent = this.lastIncorrectCard.clue;
   const elementName = this.element.querySelector('#correct-element-name');
-  elementName.textContent = this.lastIncorrectCard.name;
+  elementName.textContent = this.lastIncorrectCard.answer;
 };
 
 

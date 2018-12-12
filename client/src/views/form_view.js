@@ -28,8 +28,9 @@ FormView.prototype.bindEvents = function () {
 FormView.prototype.render = function () {
   this.element.innerHTML = '';
   const elementSymbolTitle = document.createElement('h1');
+  // TODO MULTI-APIs - HTML and associated references to be updated.
   elementSymbolTitle.setAttribute('id', 'element-symbol');
-  elementSymbolTitle.textContent = this.currentCard.symbol;
+  elementSymbolTitle.textContent = this.currentCard.clue;
   this.element.appendChild(elementSymbolTitle);
 
   const answerForm = document.createElement('form');
