@@ -1,6 +1,7 @@
 const RequestHelper = require('../helpers/request_helper.js');
 const DataProvider = require('./data_provider_model.js');
 const PubSub = require('../helpers/pub_sub.js');
+const UrlFormat = require('./api_and_cards_model.js');
 
 
 const Game = function() {
@@ -12,17 +13,39 @@ const Game = function() {
   this.currentGameLevel = null;
 };
 
+Game.prototype.bindEvents = function () {
+  PubSub.subscribe('App:Game-topic-selection', (evt) => {
+  const selectedApiDataHandler = UrlFormat[evt.detail];
+  this.getCards(selectedApiDataHandler);
+  });
 
-Game.prototype.getCards = function () {
-  const dataForGame = new DataProvider();
+  PubSub.subscribe('FormView:current-card', (evt) => {
+    this.currentCard = evt.detail;
+    this.currentCardName = evt.detail.answer.toLowerCase();
+    });
+
+  PubSub.subscribe('FormView:answer-submitted', (evt) => {
+    const userAnswer = evt.detail.toLowerCase();
+    this.userAnswer = userAnswer;
+    this.checkUserAnswer();
+    });
+
+};
+
+
+
+Game.prototype.getCards = function (selectedApiDataHandler) {
+  const dataForGame = new DataProvider(selectedApiDataHandler.url, selectedApiDataHandler.mapAPIDataToCards);
   dataForGame.bindEvents();
   dataForGame.getData();
   PubSub.subscribe('Data:data-ready', (evt) => {
     this.cards = evt.detail;
     console.log('Game model cards:', this.cards);
     PubSub.publish('Game:cards-ready', this.cards);
-  })
+  });
 };
+
+
 
 Game.prototype.lowestGameLevelOnCards = function () {
   const levels = this.cards.map((card) => {
@@ -48,21 +71,6 @@ Game.prototype.getRandomCard = function () {
   const cardIndex = Math.floor(Math.random() * (max - min)) + min;
   this.currentCardIndex = cardIndex;
   return this.cards[cardIndex];
-};
-
-Game.prototype.getUserAnswer = function () {
-  PubSub.subscribe('FormView:answer-submitted', (evt) => {
-    const userAnswer = evt.detail.toLowerCase();
-    this.userAnswer = userAnswer;
-    this.checkUserAnswer();
-  });
-};
-
-Game.prototype.getCurrentCard = function () {
-  PubSub.subscribe('FormView:current-card', (evt) => {
-    this.currentCard = evt.detail;
-    this.currentCardName = evt.detail.answer.toLowerCase();
-  });
 };
 
 Game.prototype.checkUserAnswer = function () {
