@@ -46,4 +46,5 @@ db.cards.insertMany([
     "group": "metalloid",
     "gameLevel": 1
   }
+
 ]);
