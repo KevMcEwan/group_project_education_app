@@ -57,6 +57,7 @@ FormView.prototype.render = function () {
 
 
   PubSub.publish('FormView:current-card', this.currentCard);
+  console.log('FormView has this current card', this.currentCard);
 };
 
 FormView.prototype.renderLevelCompleteMessage = function () {

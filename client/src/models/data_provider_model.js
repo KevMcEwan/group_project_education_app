@@ -8,11 +8,11 @@ const DataProvider = function (){
 
 
 DataProvider.prototype.bindEvents = function () {
-  PubSub.subscribe('Data:data-from-db', (evt) => {
-    PubSub.publish('Data:data-ready', this.cards);
+  PubSub.subscribe('Data:db-data-ready-to-check-against-API', (evt) => {
+    // THIS CAN BE DELETED???? PubSub.publish('Data:data-ready', this.cards);
     this.getAPIDataIfNeeded();
   });
-  PubSub.subscribe('Data:data-from-api', (evt) => {
+  PubSub.subscribe('Data:data-grabbed-from-api', (evt) => {
     // console.dir("data is ready ", evt);
     PubSub.publish('Data:data-ready', this.cards);
   });
@@ -33,7 +33,7 @@ DataProvider.prototype.getCardsFromDB = function () {
         this.cards.push(card);
       })
     })
-    .then((cards) => PubSub.publish('Data:data-from-db', cards))
+    .then((cards) => PubSub.publish('Data:db-data-ready-to-check-against-API', cards))
 };
 
 
@@ -46,7 +46,7 @@ DataProvider.prototype.getAPIDataIfNeeded = function () {
     if (cardsFromAPI.length > this.cards.length ) {
       this.createCardsAndAddThemToDB(cardsFromAPI);
     } else {
-      PubSub.publish('Data:data-from-api', cardsFromAPI);
+      PubSub.publish('Data:data-grabbed-from-api', cardsFromAPI);
     };
   });
 };
@@ -65,7 +65,7 @@ DataProvider.prototype.createCardsAndAddThemToDB = function (cardsFromAPI) {
     };
     requestHelper.post(newCard)
   });
-  PubSub.publish('Data:data-from-api', cardsFromAPI);
+  PubSub.publish('Data:data-grabbed-from-api', cardsFromAPI);
 };
 
 

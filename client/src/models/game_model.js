@@ -83,6 +83,7 @@ Game.prototype.checkUserAnswer = function () {
     // console.log(this.cards.length);
     this.checkForRemainingCardsAndContinueOrEnd();
   } else {
+    console.log('In game model, this is incorrect card', this.currentCard);
     PubSub.publish('Game:incorrect-card', this.currentCard);
     const nextCard = this.getRandomCard();
     PubSub.publish('Game:next-card', nextCard);

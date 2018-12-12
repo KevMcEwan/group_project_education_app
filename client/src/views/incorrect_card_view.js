@@ -8,6 +8,7 @@ const IncorrectCardView = function (element) {
 IncorrectCardView.prototype.bindEvents = function () {
   PubSub.subscribe('Game:incorrect-card', (evt) => {
     this.lastIncorrectCard = evt.detail;
+    console.log('Incorrect card view has this card:', this.lastIncorrectCard);
     this.renderIncorrectCard();
   })
 };
