@@ -1,7 +1,7 @@
 const RequestHelper = require('../helpers/request_helper.js');
 const DataProvider = require('./data_provider_model.js');
 const PubSub = require('../helpers/pub_sub.js');
-const UrlFormat = require('./api_and_cards_model.js');
+const ApiDataHandler = require('./api_data_handler_model.js');
 
 
 const Game = function() {
@@ -15,7 +15,7 @@ const Game = function() {
 
 Game.prototype.bindEvents = function () {
   PubSub.subscribe('App:Game-topic-selection', (evt) => {
-  const selectedApiDataHandler = UrlFormat[evt.detail];
+  const selectedApiDataHandler = ApiDataHandler[evt.detail];
   this.getCards(selectedApiDataHandler);
   });
 

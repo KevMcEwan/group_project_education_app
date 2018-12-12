@@ -9,7 +9,7 @@ const periodicTableFormatting = (data) => {
 };
 
 
-const UrlFormat = {
+const ApiDataHandler = {
    periodicTable: {
     url: 'https://raw.githubusercontent.com/andrejewski/periodic-table/master/data.json',
     mapAPIDataToCards: periodicTableFormatting
@@ -17,4 +17,4 @@ const UrlFormat = {
 };
 
 
-module.exports = UrlFormat;
+module.exports = ApiDataHandler;
