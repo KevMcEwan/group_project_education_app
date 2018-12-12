@@ -15,6 +15,9 @@ body {
 nav {
   display: flex;
   flex-direction: row;
+  border: 2px #EEEEEE;
+  border-style: solid;
+  border-radius: 5px;
 }
 
 .nav-contents {
@@ -22,11 +25,18 @@ nav {
   font-size: 1em;
 }
 
+.nav-contents-header {
+  margin-top: 0.7em;
+}
+
 .card-pile {
   flex: 1 1 28%;
   height: 18em;
-  background: antiquewhite;
+  background: #FFFAFA;
   margin: 3em;
+  border: black;
+  border-style: solid;
+  border-radius: 20px;
 }
 
 #card-container {
