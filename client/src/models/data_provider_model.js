@@ -10,12 +10,12 @@ const DataProvider = function (){
 DataProvider.prototype.bindEvents = function () {
   PubSub.subscribe('Data:data-from-db', (evt) => {
     PubSub.publish('Data:data-ready', this.cards);
-    // this.getAPIDataIfNeeded();
+    this.getAPIDataIfNeeded();
   });
-  // PubSub.subscribe('Data:data-from-api', (evt) => {
-  //   // console.dir("data is ready ", evt);
-  //   PubSub.publish('Data:data-ready', this.cards);
-  // });
+  PubSub.subscribe('Data:data-from-api', (evt) => {
+    // console.dir("data is ready ", evt);
+    PubSub.publish('Data:data-ready', this.cards);
+  });
 };
 
 
@@ -37,36 +37,36 @@ DataProvider.prototype.getCardsFromDB = function () {
 };
 
 
-// DataProvider.prototype.getAPIDataIfNeeded = function () {
-//   const requestHelper = new RequestHelper('https://raw.githubusercontent.com/andrejewski/periodic-table/master/data.json');
-//   requestHelper.getData()
-//   .then((cardsFromAPI) => {
-//     //if length of cards (from API) is same as the ones already in DB, do nothing
-//     console.log("in API:", cardsFromAPI.length, 'in DB',this.cards.length );
-//     if (cardsFromAPI.length > this.cards.length ) {
-//       this.createCardsAndAddThemToDB(cardsFromAPI);
-//     } else {
-//       PubSub.publish('Data:data-from-api', cardsFromAPI);
-//     };
-//   });
-// };
+DataProvider.prototype.getAPIDataIfNeeded = function () {
+  const requestHelper = new RequestHelper('https://raw.githubusercontent.com/andrejewski/periodic-table/master/data.json');
+  requestHelper.getData()
+  .then((cardsFromAPI) => {
+    //if length of cards (from API) is same as the ones already in DB, do nothing
+    console.log("in API:", cardsFromAPI.length, 'in DB',this.cards.length );
+    if (cardsFromAPI.length > this.cards.length ) {
+      this.createCardsAndAddThemToDB(cardsFromAPI);
+    } else {
+      PubSub.publish('Data:data-from-api', cardsFromAPI);
+    };
+  });
+};
 
-// DataProvider.prototype.createCardsAndAddThemToDB = function (cardsFromAPI) {
-//   //TODO: Extension: remove all from db
-//   const requestHelper = new RequestHelper('http://localhost:3000/api/card-pack');
-//   cardsFromAPI.forEach((card) => {
-//     const newCard = {
-//       name: card.name,
-//       symbol: card.symbol,
-//       atomicNumber: card.atomicNumber,
-//       colour: card.cpkHexColor,
-//       group: card.groupBlock,
-//       gameLevel: 1
-//     };
-//     requestHelper.post(newCard)
-//   });
-//   PubSub.publish('Data:data-from-api', cardsFromAPI);
-// };
+DataProvider.prototype.createCardsAndAddThemToDB = function (cardsFromAPI) {
+  //TODO: Extension: remove all from db
+  const requestHelper = new RequestHelper('http://localhost:3000/api/card-pack');
+  cardsFromAPI.forEach((card) => {
+    const newCard = {
+      name: card.name,
+      symbol: card.symbol,
+      atomicNumber: card.atomicNumber,
+      colour: card.cpkHexColor,
+      group: card.groupBlock,
+      gameLevel: 1
+    };
+    requestHelper.post(newCard)
+  });
+  PubSub.publish('Data:data-from-api', cardsFromAPI);
+};
 
 
 module.exports = DataProvider;
