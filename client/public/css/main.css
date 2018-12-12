@@ -13,11 +13,12 @@ body {
 }
 
 nav {
-  display: flex;
-  flex-direction: row;
-  border: 2px #EEEEEE;
-  border-style: solid;
-  border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    border-style: solid;
+    border-style: solid;
 }
 
 .nav-contents {
