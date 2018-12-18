@@ -3,6 +3,7 @@ const Game = require('./models/game_model.js');
 const FormView = require('./views/form_view.js');
 const IncorrectCardView = require('./views/incorrect_card_view.js');
 const PubSub = require('./helpers/pub_sub.js');
+const ApiDataHandler = require('./models/api_data_handler_model.js');
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('JavaScript Loaded');
@@ -34,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   PubSub.subscribe('FormView:start-next-level', (evt) => {
-    game.getCards();
+    const selectedApiDataHandler = ApiDataHandler[game.selectedGameTopic];
+    game.getCards(selectedApiDataHandler);
   })
 });

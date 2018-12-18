@@ -11,10 +11,12 @@ const Game = function() {
   this.currentCard = null;
   this.currentCardIndex = null;
   this.currentGameLevel = null;
+  this.selectedGameTopic = null;
 };
 
 Game.prototype.bindEvents = function () {
   PubSub.subscribe('App:Game-topic-selection', (evt) => {
+  this.selectedGameTopic = evt.detail;
   const selectedApiDataHandler = ApiDataHandler[evt.detail];
   this.getCards(selectedApiDataHandler);
   });
