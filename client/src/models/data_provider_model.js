@@ -27,7 +27,7 @@ DataProvider.prototype.getData = function () {
 
 
 DataProvider.prototype.getCardsFromDB = function () {
-  const requestHelper = new RequestHelper('https://repeat-it-to-keep-it.herokuapp.com/api/card-pack');
+  const requestHelper = new RequestHelper('https://repeat-it-to-keep-it.herokuapp.com/api/heroku_04qs6swp');
   requestHelper.getData()
     .then((cards) => {
       cards.forEach((card) => {
@@ -54,7 +54,7 @@ DataProvider.prototype.getAPIDataIfNeeded = function () {
 
 DataProvider.prototype.createCardsAndAddThemToDB = function (cardsFromAPI) {
   //TODO: Extension: remove all from db
-  const requestHelper = new RequestHelper('https://repeat-it-to-keep-it.herokuapp.com/api/card-pack');
+  const requestHelper = new RequestHelper('https://repeat-it-to-keep-it.herokuapp.com/api/heroku_04qs6swp');
 
   // cardsFromAPI.forEach((card) => {
   //   const newCard = {
