@@ -10,7 +10,7 @@ app.use(express.static(publicPath));
 
 app.use(parser.json());
 
-MongoClient.connect('mongodb://localhost:27017')
+MongoClient.connect('mongodb://<dbuser>:<dbpassword>@ds261078.mlab.com:61078/heroku_04qs6swp')
   .then((client) => {
     const db = client.db('card_game');
     const cardCollection = db.collection('cards');
