@@ -79,7 +79,7 @@ Game.prototype.checkUserAnswer = function () {
   if (this.userAnswer === this.currentCardName) {
     const cardID = this.currentCard._id;
     console.log(cardID);
-    const requestHelper = new RequestHelper('http://localhost:3000/api/card-pack');
+    const requestHelper = new RequestHelper('https://repeat-it-to-keep-it.herokuapp.com/api/card-pack');
     const updatedCard = {
       name: this.currentCard.name,
       symbol: this.currentCard.symbol,
