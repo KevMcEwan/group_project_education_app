@@ -1,4 +1,4 @@
-use card_game;
+use heroku_04qs6swp;
 db.dropDatabase();
 // db.cards.insertMany([
 //
